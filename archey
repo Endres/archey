@@ -206,7 +206,7 @@ class CPU:
 
 class RAM:
 	def __init__(self):
-		raminfo = Popen(['free', '-m'], stdout=PIPE).communicate()[0].decode('Utf-8').split('\n')
+		raminfo = Popen(['free', '-mw'], stdout=PIPE, env={'LANG': 'C'}).communicate()[0].decode('Utf-8').split('\n')
 		ram = ''.join(filter(re.compile('M').search, raminfo)).split()
 		used = int(ram[2]) - int(ram[5]) - int(ram[6])
 		usedpercent = ((float(used) / float(ram[1])) * 100)
